@@ -13,28 +13,7 @@ HEADERS_STATIC_PATH = "headers.csv"
 
 
 class Search(Resource):
-    def get(self, user_searched):
-
-
-        with open(
-            os.path.join(app.static_folder, HEADERS_STATIC_PATH), mode="r"
-        ) as infile:
-            reader = csv.reader(infile)
-            headers_static_params = {rows[0]: rows[1] for rows in reader}
-
-        # Get account number
-        user_info = requests.get(ACCOUNT_JSON_INFO % user_searched, headers=headers_static_params).json()
-        user_id = user_info["graphql"]["user"]["id"]
-        is_user_private = user_info["graphql"]["user"]["is_private"]
-        user_has_media = user_info["graphql"]["user"][
-            "edge_owner_to_timeline_media"
-        ]["count"]
-
-        if is_user_private:
-            return user_info  # {"status": "private"}
-
-        if user_has_media:
-            return user_info  # {"status": "no media"}
+    def get(self, user_id):
 
         with open(
             os.path.join(app.static_folder, HEADERS_PATH), mode="r"
