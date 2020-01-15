@@ -16,7 +16,6 @@ class Search(Resource):
 
         # Get account number
         user_info = requests.get(ACCOUNT_JSON_INFO % user_searched).json()
-
         user_id = user_info["graphql"]["user"]["id"]
         is_user_private = user_info["graphql"]["user"]["is_private"]
         user_has_media = user_info["graphql"]["user"][
@@ -24,10 +23,10 @@ class Search(Resource):
         ]["count"]
 
         if is_user_private:
-            return {"status": "private"}
+            return user_info  # {"status": "private"}
 
         if user_has_media:
-            return {"status": "no media"}
+            return user_info  # {"status": "no media"}
 
         with open(
             os.path.join(app.static_folder, HEADERS_PATH), mode="r"
