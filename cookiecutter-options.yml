@@ -1,0 +1,9 @@
+default_context:
+    project_name: "instagram_carbon_emission"
+    app_name: "instagram_carbon_emission"
+    python_version: "3.7"
+    admin_user_username: "peterparker"
+    admin_user_email: "admin@mail.com"
+    admin_user_password: "parkerpeter"
+    use_celery: "no"
+    wsgi_server: "none"

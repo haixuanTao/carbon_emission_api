@@ -1,0 +1,17 @@
+# WARNING: this file is not suitable for production, please use with caution
+version: '3'
+
+services:
+  web:
+    image: instagram_carbon_emission
+    build: .
+    command: instagram_carbon_emission run -h 0.0.0.0
+    env_file:
+      - ./.flaskenv
+    environment:
+      - DATABASE_URI=sqlite:////db/instagram_carbon_emission.db
+    volumes:
+      - ./instagram_carbon_emission:/code/instagram_carbon_emission
+      - ./db/:/db/
+    ports:
+      - "5000:5000"

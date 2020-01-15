@@ -1,0 +1,28 @@
+x-ig-app-locale,en_US
+x-ig-device-locale,en_US
+x-pigeon-session-id,d8ddf8e3-040c-4093-b1f8-8ee02508544c
+x-pigeon-rawclienttime,1578760387.825
+x-ig-connection-speed,-1kbps
+x-ig-bandwidth-speed-kbps,1218.860
+x-ig-bandwidth-totalbytes-b,138950
+x-ig-bandwidth-totaltime-ms,114
+x-ig-eu-dc-enabled,true
+x-ig-extended-cdn-thumbnail-sizes,"160,180,360"
+x-ig-app-startup-country,FR
+x-bloks-version-id,7ab39aa203b17c94cc6787d6cd9052d221683361875eee1e1bfe30b8e9debd74
+x-ig-www-claim,hmac.AR0Wqpg7o9jmDg7AeFypsCC9Vf3x_YWI24q1JCIonK-QY_ye
+x-bloks-is-layout-rtl,false
+x-bloks-enable-rendercore,false
+x-ig-device-id,84b5fb46-3663-4081-8f5e-c0f6ea003a90
+x-ig-android-id,android-5ac2c0069d701f2f
+x-ig-connection-type,WIFI
+x-ig-capabilities,3brTvwM=
+x-ig-app-id,567067343352427
+user-agent,Instagram 123.0.0.21.114 Android (27/8.1.0; 420dpi; 1080x1794; Google/google; Android SDK built for x86; generic_x86; ranchu; en_US; 188791692)
+accept-language,en-US
+accept-encoding,"gzip, deflate"
+x-fb-http-engine,Liger
+cookie,"urlgen=""{\\\""2a01:e35:2fb3:60c0:b1f8:6d91:93db:a71a\\\"": 12322}:1iqJhE:T6luudwCTB7EZp0_B5ygsBAb_Zc""; ig_direct_region_hint=LLA; ds_user=xaviertao; igfl=xaviertao; ds_user_id=145813743; shbts=1578760218.341542; mid=Xhn4GAABAAF2DD7EvnRVSzp0Czx9; sessionid=145813743%3AuMAe15zSMchEA2%3A26; csrftoken=XQWqXqPHD37FL7XEv78kpjqtr70SFmfS; shbid=17551; rur=CLN; is_starred_enabled=yes"
+content-length,8
+content-type,application/x-www-form-urlencoded
+content-encoding,deflate
