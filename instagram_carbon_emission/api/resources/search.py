@@ -9,13 +9,21 @@ ACCOUNT_JSON_INFO = "https://www.instagram.com/%s/?__a=1"
 MEDIA_INFO_URL = "https://i.instagram.com/api/v1/feed/user/%s/?exclude_comment=true&only_fetch_first_carousel_media=false"
 TAGGED_MEDIA_INFO_URL = "https://i.instagram.com/api/v1/usertags/%s/feed/?"
 HEADERS_PATH = "headers.csv"
+HEADERS_STATIC_PATH = "headers.csv"
 
 
 class Search(Resource):
     def get(self, user_searched):
 
+
+        with open(
+            os.path.join(app.static_folder, HEADERS_STATIC_PATH), mode="r"
+        ) as infile:
+            reader = csv.reader(infile)
+            headers_static_params = {rows[0]: rows[1] for rows in reader}
+
         # Get account number
-        user_info = requests.get(ACCOUNT_JSON_INFO % user_searched).json()
+        user_info = requests.get(ACCOUNT_JSON_INFO % user_searched, headers=headers_static_params).json()
         user_id = user_info["graphql"]["user"]["id"]
         is_user_private = user_info["graphql"]["user"]["is_private"]
         user_has_media = user_info["graphql"]["user"][
