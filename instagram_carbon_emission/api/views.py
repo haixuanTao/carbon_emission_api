@@ -14,7 +14,7 @@ api = Api(blueprint)
 
 api.add_resource(UserResource, '/users/<int:user_id>')
 api.add_resource(UserList, '/users')
-api.add_resource(Search, '/search/<string:user_searched>')
+api.add_resource(Search, '/search/<string:user_id>')
 
 
 @blueprint.before_app_first_request
