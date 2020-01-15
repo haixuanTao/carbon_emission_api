@@ -11,3 +11,4 @@ passlib
 apispec[yaml]
 apispec-webframeworks
 tox
+requests
