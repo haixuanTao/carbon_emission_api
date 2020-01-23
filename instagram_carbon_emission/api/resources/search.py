@@ -1,6 +1,8 @@
 import requests
 import csv
 import os
+import time
+import numpy as np
 
 from flask_restful import Resource
 from flask import current_app as app
@@ -13,27 +15,59 @@ HEADERS_STATIC_PATH = "headers.csv"
 
 
 class Search(Resource):
-    def get(self, user_id):
-
+    def __init__(self):
         with open(
             os.path.join(app.static_folder, HEADERS_PATH), mode="r"
         ) as infile:
             reader = csv.reader(infile)
-            headers_params = {rows[0]: rows[1] for rows in reader}
+            self.headers_params = {rows[0]: rows[1] for rows in reader}
+
+    def get(self, user_id):
 
         # TODO: Do several pages
         # while not_enough_data and more_available:
-        response_own = requests.get(
-            url=MEDIA_INFO_URL % user_id, headers=headers_params
+
+        response_json = {"status": "ok", "items": []}
+
+        response_json["items"] += self.get_pictures_from_url(
+            MEDIA_INFO_URL % user_id
+        )
+        response_json["items"] += self.get_pictures_from_url(
+            TAGGED_MEDIA_INFO_URL % user_id
+        )
+
+        return response_json
+
+    def get_pictures_from_url(self, url: str) -> list:
+
+        results = []
+
+        iterator_counter = 0
+        more_available = True
+        next_max_id = 0
+
+        response_temporary = requests.get(
+            url=url, headers=self.headers_params
         ).json()
 
-        # TODO: Do several pages
-        # Get tagged media
-        response_tagged = requests.get(
-            url=TAGGED_MEDIA_INFO_URL % user_id, headers=headers_params
-        ).json()
+        more_available = response_temporary["more_available"]
+        iterator_counter += 1
 
-        # group together
-        response_own["items"] += response_tagged["items"]
+        results += response_temporary["items"]
+        time.sleep(0.2)
 
-        return response_own
+        while iterator_counter < 5 and more_available:
+            next_max_id = response_temporary["next_max_id"]
+
+            response_temporary = requests.get(
+                url=url + "&max_id=" + str(next_max_id), headers=self.headers_params
+            ).json()
+            print(url + "&max_id=" + str(next_max_id))
+
+            iterator_counter += 1
+            more_available = response_temporary["more_available"]
+            results += response_temporary["items"]
+
+            time.sleep(0.2)
+
+        return results
