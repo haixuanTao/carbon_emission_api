@@ -17,7 +17,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script:
+        script: |
           $HOME/local/bin/tmux a -t 1
           cd carbon_emission_api/
           git pull
