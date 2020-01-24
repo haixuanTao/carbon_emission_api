@@ -18,5 +18,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script:
+          $HOME/local/bin/tmux a -t 1
           cd carbon_emission_api/
           git pull
+          $HOME/local/bin/tmux detach-client
