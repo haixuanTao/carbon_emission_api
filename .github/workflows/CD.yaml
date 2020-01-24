@@ -1,0 +1,22 @@
+name: CD
+
+on:
+  push:
+      branches:
+      - master         # Push events on master branch
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script:
+          cd carbon_emission_api/
+          git pull

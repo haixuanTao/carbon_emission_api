@@ -62,7 +62,6 @@ class Search(Resource):
             response_temporary = requests.get(
                 url=url + "&max_id=" + str(next_max_id), headers=self.headers_params
             ).json()
-            print(url + "&max_id=" + str(next_max_id))
 
             iterator_counter += 1
             more_available = response_temporary["more_available"]
