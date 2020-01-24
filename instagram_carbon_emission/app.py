@@ -1,5 +1,5 @@
 from flask import Flask
-from flask.ext.cors import CORS, cross_origin
+from flask_cors import CORS
 
 from instagram_carbon_emission import auth, api
 from instagram_carbon_emission.extensions import db, jwt, migrate, apispec
@@ -53,7 +53,7 @@ def configure_apispec(app):
     """
     apispec.init_app(app, security=[{"jwt": []}])
     apispec.spec.components.security_scheme(
-        "jwt", {"type": "http", "scheme": "bearer", "bearerFormat": "JWT",}
+        "jwt", {"type": "http", "scheme": "bearer", "bearerFormat": "JWT", }
     )
     apispec.spec.components.schema(
         "PaginatedResult",
