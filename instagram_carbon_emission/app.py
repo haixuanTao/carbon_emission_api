@@ -17,10 +17,10 @@ def create_app(testing=False, cli=False):
     CORS(
         app,
         resources={
-            r"/api/": {
+            r"/api/*": {
                 "origins": [
                     "https://instagram-carbon-emission.s3.eu-west-3.amazonaws.com/index.html",
-                    "http://localhost:3000/",
+                    "*",
                 ],
                 "allow_headers": [
                     "Content-Type",
