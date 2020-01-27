@@ -8,13 +8,15 @@ from instagram_carbon_emission.api.resources.user import UserSchema
 from instagram_carbon_emission.api.resources.search import Search
 
 
-blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
+blueprint = Blueprint("api", __name__, url_prefix="/api/v1")
 api = Api(blueprint)
 
 
-api.add_resource(UserResource, '/users/<int:user_id>')
-api.add_resource(UserList, '/users')
-api.add_resource(Search, '/search/<string:user_id>')
+api.add_resource(UserResource, "/users/<int:user_id>")
+api.add_resource(UserList, "/users")
+api.add_resource(
+    Search, "/search/id=<string:user_id>&is_verified=<string:is_verified>"
+)
 
 
 @blueprint.before_app_first_request

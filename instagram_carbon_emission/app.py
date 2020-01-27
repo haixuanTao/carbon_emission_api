@@ -19,7 +19,8 @@ def create_app(testing=False, cli=False):
         resources={
             r"/api/*": {
                 "origins": [
-                    "https://instagram-carbon-emission.s3.eu-west-3.amazonaws.com/index.html",
+                    "https://instagram-carbon-emission."
+                    "s3.eu-west-3.amazonaws.com/index.html",
                     "*",
                 ],
                 "allow_headers": [
