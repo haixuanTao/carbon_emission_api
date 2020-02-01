@@ -39,21 +39,17 @@ class Search(Resource):
         # TODO: Do several pages
         # while not_enough_data and more_available:
 
-        response_json = {"status": "ok", "items": []}
+        items = []
 
         if is_verified == "true":
-            response_json["items"] += self.get_pictures_from_url(
-                MEDIA_INFO_URL % user_id, 10
-            )
+            items += self.get_pictures_from_url(MEDIA_INFO_URL % user_id, 10)
         else:
-            response_json["items"] += self.get_pictures_from_url(
-                MEDIA_INFO_URL % user_id, 5
-            )
-            response_json["items"] += self.get_pictures_from_url(
+            items += self.get_pictures_from_url(MEDIA_INFO_URL % user_id, 5)
+            items += self.get_pictures_from_url(
                 TAGGED_MEDIA_INFO_URL % user_id, 5
             )
 
-        return response_json
+        return {"status": "ok", "items": items}
 
     def get_pictures_from_url(self, url: str, number_of_pages: int) -> list:
 
@@ -63,28 +59,33 @@ class Search(Resource):
         more_available = True
         next_max_id = 0
 
-        response_temporary = requests.get(
-            url=url, headers=self.headers_params
-        ).json()
+        promise = requests.get(url=url, headers=self.headers_params)
 
-        more_available = response_temporary["more_available"]
-        current_page += 1
+        if promise.ok:
 
-        results += response_temporary["items"]
-        time.sleep(0.2)
+            response_temporary = promise.json()
 
-        while current_page < number_of_pages and more_available:
-            next_max_id = response_temporary["next_max_id"]
-
-            response_temporary = requests.get(
-                url=url + "&max_id=" + str(next_max_id),
-                headers=self.headers_params,
-            ).json()
-
-            current_page += 1
             more_available = response_temporary["more_available"]
-            results += response_temporary["items"]
+            current_page += 1
 
+            results += response_temporary["items"]
             time.sleep(0.2)
+
+            while current_page < number_of_pages and more_available:
+                next_max_id = response_temporary["next_max_id"]
+
+                response_temporary = requests.get(
+                    url=url + "&max_id=" + str(next_max_id),
+                    headers=self.headers_params,
+                ).json()
+
+                current_page += 1
+                more_available = response_temporary["more_available"]
+                results += response_temporary["items"]
+
+                time.sleep(0.2)
+
+        else:
+            results = []
 
         return results

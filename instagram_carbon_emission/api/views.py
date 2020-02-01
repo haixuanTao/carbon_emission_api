@@ -15,7 +15,7 @@ api = Api(blueprint)
 api.add_resource(UserResource, "/users/<int:user_id>")
 api.add_resource(UserList, "/users")
 api.add_resource(
-    Search, "/search/id=<string:user_id>&is_verified=<string:is_verified>"
+    Search, "/search/id=<int:user_id>&is_verified=<string:is_verified>"
 )
 
 
