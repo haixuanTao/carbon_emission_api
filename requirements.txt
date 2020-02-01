@@ -13,3 +13,4 @@ apispec-webframeworks
 tox
 requests
 uwsgi
+flask-cors

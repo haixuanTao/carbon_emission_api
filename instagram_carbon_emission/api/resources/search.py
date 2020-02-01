@@ -5,6 +5,7 @@ import time
 
 from flask_restful import Resource
 from flask import current_app as app
+from instagram_carbon_emission.extensions import cache
 
 ACCOUNT_JSON_INFO = "https://www.instagram.com/%s/?__a=1"
 MEDIA_INFO_URL = (
@@ -24,6 +25,7 @@ class Search(Resource):
             reader = csv.reader(infile)
             self.headers_params = {rows[0]: rows[1] for rows in reader}
 
+    @cache.cached(timeout=604800)
     def get(self, user_id: int, is_verified: str) -> dict:
         """Get the media for a user. If the user is verified do not take the
         tagged media and go further in the media history.

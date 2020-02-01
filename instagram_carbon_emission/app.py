@@ -2,7 +2,13 @@ from flask import Flask
 from flask_cors import CORS
 
 from instagram_carbon_emission import auth, api
-from instagram_carbon_emission.extensions import db, jwt, migrate, apispec
+from instagram_carbon_emission.extensions import (
+    cache,
+    db,
+    jwt,
+    migrate,
+    apispec,
+)
 
 
 def create_app(testing=False, cli=False):
@@ -10,6 +16,9 @@ def create_app(testing=False, cli=False):
     """
     app = Flask("instagram_carbon_emission", static_folder="./static")
     app.config.from_object("instagram_carbon_emission.config")
+
+    app.config["CACHE_TYPE"] = "simple"
+    app.config["CACHE_DEFAULT_TIMEOUT"] = 604800
 
     if testing is True:
         app.config["TESTING"] = True
@@ -44,6 +53,7 @@ def configure_extensions(app, cli):
     """
     db.init_app(app)
     jwt.init_app(app)
+    cache.init_app(app)
 
     if cli is True:
         migrate.init_app(app, db)
@@ -54,7 +64,7 @@ def configure_apispec(app):
     """
     apispec.init_app(app, security=[{"jwt": []}])
     apispec.spec.components.security_scheme(
-        "jwt", {"type": "http", "scheme": "bearer", "bearerFormat": "JWT", }
+        "jwt", {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}
     )
     apispec.spec.components.schema(
         "PaginatedResult",
