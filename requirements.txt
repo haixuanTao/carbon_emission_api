@@ -14,3 +14,4 @@ tox
 requests
 uwsgi
 flask-cors
+flask-Caching
