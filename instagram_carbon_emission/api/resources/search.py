@@ -1,10 +1,10 @@
-import requests
 import csv
 import os
 import time
 
-from flask_restful import Resource
+import requests
 from flask import current_app as app
+from flask_restful import Resource
 from instagram_carbon_emission.extensions import cache
 
 ACCOUNT_JSON_INFO = "https://www.instagram.com/%s/?__a=1"
@@ -62,10 +62,12 @@ class Search(Resource):
         next_max_id = 0
 
         promise = requests.get(url=url, headers=self.headers_params)
-
+        print(url)
+        print(promise.json())
         if promise.ok:
 
             response_temporary = promise.json()
+            print(response_temporary)
 
             more_available = response_temporary["more_available"]
             current_page += 1
